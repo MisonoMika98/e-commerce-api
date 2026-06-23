@@ -26,10 +26,7 @@ public class CategoryService
 
     public Category getById(int categoryId)
     {
-        // get category by id
-        var category = categoryRepository.findById(categoryId).get();
-
-        return category;
+        return categoryRepository.findById(categoryId).orElse(null);
     }
 
     public Category create(Category category)
@@ -42,8 +39,9 @@ public class CategoryService
 
     public Category update(int categoryId, Category category)
     {
-        // update category and return the updated category
-        Category newCategory = categoryRepository.findById(categoryId).get();
+        Category newCategory = categoryRepository.findById(categoryId).orElse(null);
+
+        if (newCategory == null) return null;
 
         newCategory.setName(category.getName());
         newCategory.setDescription(category.getDescription());

@@ -1,9 +1,11 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 import org.yearup.service.CategoryService;
@@ -38,21 +40,26 @@ public class CategoriesController
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Category> getById(@PathVariable int id)
+    @PreAuthorize("permitAll()")
+    public Category getById(@PathVariable int id)
     {
-        // get the category by id
-        var category =  categoryService.getById(id);
-        return ResponseEntity.ok(category);
-    }
+        Category category = categoryService.getById(id);
 
+        if (category == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category Not Found");
+
+        // get the category by id
+        return category;
+    }
 
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
+    @PreAuthorize("permitAll()")
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         // get a list of product by categoryId
-        return null;
+        return productService.listByCategoryId(categoryId);
     }
 
 
@@ -71,11 +78,12 @@ public class CategoriesController
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestBody Category category)
+    public Category updateCategory(@PathVariable int id, @RequestBody Category category)
     {
-        // update the category by id and return the updated category (200 OK)
-        categoryService.update(id, category);
-        return ResponseEntity.noContent().build();
+        if (categoryService.getById(id) == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category Not Found");
+
+        return categoryService.update(id, category);
     }
 
 
@@ -85,7 +93,9 @@ public class CategoriesController
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable int id)
     {
-        // delete the category by id and return status 204 No Content
+        if (categoryService.getById(id) == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category Not Found");
+
         categoryService.delete(id);
 
         return ResponseEntity.noContent().build();
