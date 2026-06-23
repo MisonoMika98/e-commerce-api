@@ -19,29 +19,41 @@ public class CategoryService
     public List<Category> getAllCategories()
     {
         // get all categories
-        return null;
+        var categories = categoryRepository.findAll();
+
+        return categories;
     }
 
     public Category getById(int categoryId)
     {
         // get category by id
-        return null;
+        var category = categoryRepository.findById(categoryId).get();
+
+        return category;
     }
 
     public Category create(Category category)
     {
         // create a new category
-        return null;
+        var newCategory = categoryRepository.save(category);
+
+        return newCategory;
     }
 
     public Category update(int categoryId, Category category)
     {
         // update category and return the updated category
-        return null;
+        Category newCategory = categoryRepository.findById(categoryId).get();
+
+        newCategory.setName(category.getName());
+        newCategory.setDescription(category.getDescription());
+
+        return categoryRepository.save(newCategory);
     }
 
     public void delete(int categoryId)
     {
         // delete category
+        categoryRepository.deleteById(categoryId);
     }
 }
