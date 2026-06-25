@@ -1,5 +1,6 @@
 package org.yearup.controllers;
 
+import org.springframework.web.bind.annotation.RestController;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
 import org.yearup.service.ShoppingCartService;
@@ -7,8 +8,11 @@ import org.yearup.service.UserService;
 
 import java.security.Principal;
 
-// convert this class to a REST controller
+
+
 // only logged in users should have access to these actions
+@RestController
+
 public class ShoppingCartController
 {
     // a shopping cart controller depends on the service layer
