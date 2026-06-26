@@ -60,6 +60,9 @@ header .cart #cart-items
     padding-left: 5px;
 }
 
+body {
+    background-color: #bab8b8;
+}
 main
 {
     display: grid;
