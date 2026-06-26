@@ -6,10 +6,16 @@ Utilizes a REST Api built in Java and Spring Boot on the back end.
 
 ## Features
 
-# User Profile and Registration
+### User Profile and Registration
+- Secure user sign up using hashed passwords
+- Add profile information on the web page
+<img width="1893" height="946" alt="screencap3" src="https://github.com/user-attachments/assets/0e97ee97-090f-44cc-91f4-325f8d243555" />
 
-# Shopping Cart
-
+### Shopping Cart
+- Add items to your cart
+- Modify the quantity
+- Remove all items from the cart with the click of a button
+<img width="1879" height="929" alt="screencap4" src="https://github.com/user-attachments/assets/4db9651c-7a96-4bb2-8238-ebd5749c1fd5" />
 
 ## How to Use
 - Have Java JDK 17 installed along with MySQL Server.
@@ -17,6 +23,7 @@ Utilizes a REST Api built in Java and Spring Boot on the back end.
 - Go to http://localhost:8080 on your web browser to see the Spring Boot server
 - Create a new profile via http://localhost:8080/swagger-ui.html
 
-## Screenshots
-<img width="100" height="100" alt="koreanhinatype" src="https://github.com/user-attachments/assets/e6948ed5-d1e1-4dc6-9cf4-57c6c5c4f7f7" />
+## Screenshot
+<img width="1887" height="943" alt="screencap2" src="https://github.com/user-attachments/assets/ee73dbfc-6fa0-4bf0-8a43-1b2d556f78ed" />
+
 
